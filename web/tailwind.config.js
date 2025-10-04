@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
@@ -6,6 +7,12 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",   // safe extra
     "./src/**/*.{js,ts,jsx,tsx}"      // safe extra
   ],
-  theme: { extend: {} },
+  theme: {
+    extend: {
+      fontFamily: {
+        brand: "var(--font-brand)",
+      },
+    },
+  },
   plugins: [],
 };

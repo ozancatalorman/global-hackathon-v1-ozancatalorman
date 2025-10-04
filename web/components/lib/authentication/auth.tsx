@@ -21,7 +21,10 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem(KEY) === "1";
+  });
 
   // read once on mount
   useEffect(() => {
@@ -48,10 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const value = useMemo(
-    () => ({ isLoggedIn, login, logout }),
-    [isLoggedIn]
-  );
+  const value = useMemo(() => ({ isLoggedIn, login, logout }), [isLoggedIn]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

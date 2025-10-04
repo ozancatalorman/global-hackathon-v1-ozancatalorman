@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ChevronDown, X, Plus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/components/lib/authentication/auth";
 
 export default function Header({
@@ -18,13 +18,16 @@ export default function Header({
   const { isLoggedIn, logout } = useAuth();
   const router = useRouter();
 
+  const pathname = usePathname();
+  const hideGuide = pathname?.startsWith("/dashboard");
+
   return (
     <>
       {/* HEADER */}
       <header className="sticky top-0 z-40 border-b border-white/10 bg-neutral-950/70 backdrop-blur">
         <div className="flex items-center justify-between px-8 mx-auto h-14 max-w-8xl">
           {/* Hamburger / Guide — only when logged in */}
-          {isLoggedIn ? (
+          {isLoggedIn && !hideGuide ? (
             <button
               aria-label="Guide"
               onClick={() => setSidebarOpen((v) => !v)}
@@ -49,15 +52,15 @@ export default function Header({
             >
               {/* Logo */}
               <Image
-                src="/storma.png"
+                src="/main-brain-wb.png"
                 alt="Storma logo"
-                width={58}
-                height={58}
+                width={42}
+                height={42}
                 className="object-contain drop-shadow-[0_0_16px_rgba(56,189,248,0.25)] shrink-0"
                 priority
               />
               {/* Wordmark with negative margin to tighten spacing */}
-              <div className="-ml-[30px]">
+              <div className="-ml-[15px]">
                 <Image
                   src="/storma_text.png"
                   alt="storma"
@@ -92,7 +95,7 @@ export default function Header({
                   {!isLoggedIn ? (
                     <>
                       <MenuItem
-                        label="Log in"
+                        label="Log-in"
                         href="/login"
                         onAfter={() => setProfileOpen(false)}
                       />
@@ -151,10 +154,10 @@ export default function Header({
               <div className="flex items-center justify-between px-2 py-3">
                 <div className="flex items-center px-4 py-3">
                   <span
-                    className="text-[25px] font-semibold text-sky-400 tracking-tight select-none drop-shadow-[0_0_6px_rgba(56,189,248,0.4)]"
+                    className="text-[25px] font-semibold text-blue-500 tracking-tight select-none drop-shadow-[0_0_6px_rgba(56,189,248,0.4)]"
                     style={{ fontFamily: "var(--font-brand)" }}
                   >
-                    Storms
+                    Storma
                   </span>
                 </div>
 
@@ -167,19 +170,16 @@ export default function Header({
               </div>
 
               <div className="px-4">
-                <button
-                  onClick={() => {
-                    setSidebarOpen(false);
-                    onCreateProject();
-                  }}
-                  className="inline-flex items-center justify-center w-full gap-2 px-3 py-2 mt-2 text-sm font-medium text-white bg-indigo-500 rounded-lg hover:bg-indigo-400"
+                <Link
+                  href="/dashboard"
+                  onClick={() => setSidebarOpen(false)}
+                  className="inline-flex items-center justify-center w-full gap-2 px-3 py-2 mt-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-500"
                 >
-                  <Plus size={16} />
-                  New Storm
-                </button>
+                  Go To Your Dashboard
+                </Link>
 
                 <p className="mt-4 text-xs text-white/50">
-                  Start a fresh storm. We’ll ask for a brief idea summary next.
+                  Start a fresh storm from your dashboard or pick up where you left with an existing one.
                 </p>
               </div>
             </motion.aside>

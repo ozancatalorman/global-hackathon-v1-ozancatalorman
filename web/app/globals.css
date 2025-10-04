@@ -3,3 +3,17 @@
 @tailwind utilities;
 
 :root { color-scheme: dark; }
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 6s ease infinite;
+}
+
