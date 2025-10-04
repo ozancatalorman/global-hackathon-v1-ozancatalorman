@@ -4,15 +4,20 @@
 import Header from "@/components/header";
 import Image from "next/image";
 import Link from "next/link";
-import { useAuth } from "@/components/lib/authentication/auth"; // your hook
+import { useAuth } from "@/components/lib/authentication/auth";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const { isLoggedIn } = useAuth(); // << use the flag from your context
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  const href = isLoggedIn ? "/dashboard" : "/login";
-  const hoverText = isLoggedIn
-    ? "Go To Your Dashboard"
-    : "Log-in and Start Storming";
+  // keep SSR stable (assume logged out on server)
+  const href = mounted && isLoggedIn ? "/dashboard" : "/login";
+  const hoverText =
+    mounted && isLoggedIn
+      ? "Go To Your Dashboard"
+      : "Log-in and Start Storming";
 
   return (
     <div className="min-h-screen text-white bg-black">
@@ -42,11 +47,16 @@ export default function Home() {
           </div>
 
           {/* Hover overlay */}
-          <div className="absolute inset-0 flex items-center justify-center transition opacity-0 group-hover:opacity-100">
-            <span className="px-4 py-1 text-sm text-white border rounded-full bg-black/60 backdrop-blur-md border-white/10">
-              {hoverText}
-            </span>
-          </div>
+          {mounted && (
+            <div className="absolute inset-0 flex items-center justify-center transition opacity-0 group-hover:opacity-100">
+              <span
+                className="px-4 py-1 text-sm text-white border rounded-full bg-black/60 backdrop-blur-md border-white/10"
+                suppressHydrationWarning
+              >
+                {hoverText}
+              </span>
+            </div>
+          )}
         </Link>
       </main>
     </div>

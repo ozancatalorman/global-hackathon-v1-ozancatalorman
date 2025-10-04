@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown, X, Plus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -21,13 +21,16 @@ export default function Header({
   const pathname = usePathname();
   const hideGuide = pathname?.startsWith("/dashboard");
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   return (
     <>
       {/* HEADER */}
       <header className="sticky top-0 z-40 border-b border-white/10 bg-neutral-950/70 backdrop-blur">
         <div className="flex items-center justify-between px-8 mx-auto h-14 max-w-8xl">
           {/* Hamburger / Guide — only when logged in */}
-          {isLoggedIn && !hideGuide ? (
+          {mounted && isLoggedIn && !hideGuide ? (
             <button
               aria-label="Guide"
               onClick={() => setSidebarOpen((v) => !v)}
@@ -92,6 +95,7 @@ export default function Header({
                   transition={{ duration: 0.15 }}
                   className="absolute right-0 mt-2 overflow-hidden border shadow-xl w-44 rounded-xl border-white/10 bg-neutral-900/95 backdrop-blur"
                 >
+                  
                   {!isLoggedIn ? (
                     <>
                       <MenuItem
@@ -179,7 +183,8 @@ export default function Header({
                 </Link>
 
                 <p className="mt-4 text-xs text-white/50">
-                  Start a fresh storm from your dashboard or pick up where you left with an existing one.
+                  Start a fresh storm from your dashboard or pick up where you
+                  left with an existing one.
                 </p>
               </div>
             </motion.aside>
