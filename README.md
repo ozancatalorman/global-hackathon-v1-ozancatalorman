@@ -1,3 +1,8 @@
+PLEASE USE THESE CREDENTIALS:
+acta@ozan.com
+12345
+
+
 # ⚡ Storma — Build AI Teams That Think With You
 
 Welcome to **Storma**, the hackathon-born app where you spin up your idea and I make your *AI dream team* go to work.  
@@ -42,11 +47,6 @@ It’s like a whole early-stage startup team inside the browser.
 - Toast notifications are sometimes shy.  
 
 ---
-
-
-PLEASE USE THESE CREDENTIALS:
-acta@ozan.com
-12345
 
 ## ⚙️ Setup
 
