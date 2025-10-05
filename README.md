@@ -37,7 +37,7 @@ It’s like a whole early-stage startup team inside the browser.
 ## 🧪 Known Issues (but hey, it was a 24-hour sprint)
 
 - Some agents occasionally forget who they are.  
-- The CEO sometimes UNDER-explains because he just thinks he is always right.
+- The CEO sometimes over-explains because he just thinks he is always right.
 - Chat history sync might have its “Elephant” moments.  
 - Toast notifications are sometimes shy.  
 
