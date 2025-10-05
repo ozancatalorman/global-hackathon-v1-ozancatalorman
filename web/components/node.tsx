@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 
 type Props = {
   label: string;
-  x: number; // 0..100 (percent of canvas)
-  y: number; // 0..100
+  x: number;
+  y: number;
   active?: boolean;
   onClick?: () => void;
 };

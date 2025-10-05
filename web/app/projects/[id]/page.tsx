@@ -1,9 +1,8 @@
-// web/app/projects/[id]/page.tsx
 "use client";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { useEffect, useMemo, useState} from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Header from "@/components/header";
 import { X, Maximize2, Minimize2, Sparkles } from "lucide-react";
@@ -56,7 +55,7 @@ function loadPrompts(pid: string) {
   }
 }
 
-/* ---------- tiny Toast (notifications) ---------- */
+/* ---------- notifications ---------- */
 function Toast({ text, show }: { text: string; show: boolean }) {
   return (
     <div
@@ -74,7 +73,7 @@ function Toast({ text, show }: { text: string; show: boolean }) {
   );
 }
 
-/* ---------- Drawer (chat sidebar) ---------- */
+/* ---------- chat sidebar ---------- */
 function Drawer({
   open,
   onClose,
@@ -132,8 +131,8 @@ function Drawer({
             </button>
           </div>
         </div>
- 
-        <div className="flex flex-col h-[calc(100vh-48px)]">     
+
+        <div className="flex flex-col h-[calc(100vh-48px)]">
           <div className="flex-1 p-4 overflow-auto">
             {history.length === 0 ? (
               <p className="text-white/50">No messages yet.</p>
@@ -242,7 +241,7 @@ function Drawer({
   );
 }
 
-/* ---------- Project Page ---------- */
+/* ---------- project Page ---------- */
 export default function ProjectPage() {
   const params = useParams<{ id: string }>();
   const projectId = params?.id ?? "unknown";
@@ -266,22 +265,18 @@ export default function ProjectPage() {
     [projects, projectId]
   );
 
-  // load projects once
   useEffect(() => {
     setProjects(loadProjects());
     setLoaded(true);
   }, []);
 
-  // redirect only after we know whether the project exists
   useEffect(() => {
     if (!loaded) return;
     if (!project) router.replace("/dashboard");
   }, [loaded, project, router]);
 
-  // near other state
   const [ceoPreview, setCeoPreview] = useState<string>("");
 
-  // load once per project
   useEffect(() => {
     try {
       const s = localStorage.getItem(`storma:${projectId}:ceo_preview`);
@@ -404,9 +399,7 @@ export default function ProjectPage() {
       JSON.stringify(json.prompts)
     );
 
-    // NEW — keep a short CEO preview for the main panel (full lives in Core chat)
     if (json?.summary?.comments?.ceo) {
-      // full text stored in core chat (you already do this above)
       setHistory("core", [
         ...loadHistory(projectId, "core"),
         { role: "assistant", content: json.summary.comments.ceo },
@@ -468,7 +461,6 @@ export default function ProjectPage() {
     }
   }
 
-  // Rename project (name only)
   function renameProject() {
     if (!project) return;
     const val = prompt("Rename project", project.name);
@@ -480,7 +472,6 @@ export default function ProjectPage() {
     saveProjects(next);
   }
 
-  // Root editor save
   function saveRootIdea() {
     const txt = rootDraft.trim();
     if (!txt || !project) return;

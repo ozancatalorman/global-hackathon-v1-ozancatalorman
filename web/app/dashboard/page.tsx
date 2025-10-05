@@ -7,13 +7,12 @@ import { useAuth } from "@/components/lib/authentication/auth";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, X, Edit2, Trash2 } from "lucide-react";
 
-// IMPORTANT: matches the key used in the project page
 const PROJECTS_KEY = "storma:demo:projects:v1";
 
 type Project = {
   id: string;
   name: string;
-  idea: string;      // stored but not editable here
+  idea: string;
   createdAt: number;
 };
 
@@ -28,17 +27,14 @@ export default function DashboardPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [initialized, setInitialized] = useState(false);
 
-  // create modal state (create asks for name + idea)
   const [createOpen, setCreateOpen] = useState(false);
   const [name, setName] = useState("");
   const [idea, setIdea] = useState("");
 
-  // edit modal state (edit name only)
   const [editOpen, setEditOpen] = useState(false);
   const [editName, setEditName] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
 
-  // load once
   useEffect(() => {
     try {
       const raw = localStorage.getItem(PROJECTS_KEY);
@@ -47,7 +43,6 @@ export default function DashboardPage() {
     setInitialized(true);
   }, []);
 
-  // persist
   useEffect(() => {
     if (!initialized) return;
     localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects));
@@ -56,7 +51,6 @@ export default function DashboardPage() {
   const gradientText =
     "bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-x";
 
-  /* ---------- Create ---------- */
   function openCreate() {
     setName("");
     setIdea("");
@@ -81,7 +75,6 @@ export default function DashboardPage() {
     router.push(`/projects/${newProject.id}`);
   }
 
-  /* ---------- Edit name only ---------- */
   function openEdit(p: Project) {
     setEditingId(p.id);
     setEditName(p.name);
@@ -99,9 +92,12 @@ export default function DashboardPage() {
     setEditOpen(false);
   }
 
-  /* ---------- Delete ---------- */
   function removeProject(id: string) {
-    if (!confirm("Are you sure you want to delete this project and its local chats?"))
+    if (
+      !confirm(
+        "Are you sure you want to delete this project and its local chats?"
+      )
+    )
       return;
     const next = projects.filter((p) => p.id !== id);
     setProjects(next);
@@ -119,7 +115,9 @@ export default function DashboardPage() {
         {/* header row with right-aligned New button */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className={`text-2xl md:text-3xl font-semibold ${gradientText}`}>
+            <h1
+              className={`text-2xl md:text-3xl font-semibold ${gradientText}`}
+            >
               Your Storms
             </h1>
             <p className={`mt-2 text-base md:text-lg ${gradientText}`}>
@@ -144,7 +142,9 @@ export default function DashboardPage() {
                 role="button"
                 tabIndex={0}
                 onClick={() => router.push(`/projects/${p.id}`)}
-                onKeyDown={(e) => e.key === "Enter" && router.push(`/projects/${p.id}`)}
+                onKeyDown={(e) =>
+                  e.key === "Enter" && router.push(`/projects/${p.id}`)
+                }
                 className="relative p-4 text-left transition border cursor-pointer rounded-2xl border-white/10 bg-neutral-900/60 hover:border-white/20 hover:bg-neutral-900/80"
               >
                 <div className="flex items-center justify-between mb-2">

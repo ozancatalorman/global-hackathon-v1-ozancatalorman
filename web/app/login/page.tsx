@@ -23,7 +23,7 @@ export default function LoginPage() {
             if (ok) router.push("/");
             else setError("Invalid credentials");
           }}
-          className="w-full space-y-4 rounded-2xl border border-white/10 bg-neutral-950 p-6"
+          className="w-full p-6 space-y-4 border rounded-2xl border-white/10 bg-neutral-950"
         >
           <h1 className="text-xl font-medium">Log in</h1>
 
@@ -34,7 +34,7 @@ export default function LoginPage() {
             <input
               id="email"
               type="email"
-              className="w-full rounded-lg border border-white/10 bg-neutral-900 p-3 text-sm outline-none focus:ring-2 focus:ring-white/20"
+              className="w-full p-3 text-sm border rounded-lg outline-none border-white/10 bg-neutral-900 focus:ring-2 focus:ring-white/20"
               placeholder="you@company.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -49,7 +49,7 @@ export default function LoginPage() {
             <input
               id="password"
               type="password"
-              className="w-full rounded-lg border border-white/10 bg-neutral-900 p-3 text-sm outline-none focus:ring-2 focus:ring-white/20"
+              className="w-full p-3 text-sm border rounded-lg outline-none border-white/10 bg-neutral-900 focus:ring-2 focus:ring-white/20"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -61,12 +61,12 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="mt-2 w-full rounded-lg bg-white px-3 py-2 text-sm font-medium text-black hover:bg-white/90"
+            className="w-full px-3 py-2 mt-2 text-sm font-medium text-black bg-white rounded-lg hover:bg-white/90"
           >
             Continue
           </button>
 
-          <p className="pt-2 text-center text-xs text-white/50">
+          <p className="pt-2 text-xs text-center text-white/50">
             Uses <code>NEXT_PUBLIC_LOGIN_EMAIL</code> &{" "}
             <code>NEXT_PUBLIC_LOGIN_PASSWORD</code>.
           </p>

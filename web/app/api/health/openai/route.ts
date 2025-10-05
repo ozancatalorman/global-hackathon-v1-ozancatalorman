@@ -1,4 +1,3 @@
-// web/app/api/health/openai/route.ts
 import OpenAI from "openai";
 
 export const runtime = "edge";
@@ -7,9 +6,8 @@ export async function GET() {
   try {
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
 
-    // tiny, cheap ping (no prompt leakage)
     const resp = await client.chat.completions.create({
-      model: "gpt-4o-mini", // fast & inexpensive
+      model: "gpt-4o-mini", // I used this model since it's fast and cheap :D
       messages: [{ role: "user", content: "pong" }],
       max_tokens: 5,
       temperature: 0,

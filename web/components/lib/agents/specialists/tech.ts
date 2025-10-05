@@ -1,14 +1,10 @@
-// components/lib/agents/specialists/tech.ts
-import { chatOnce, ChatMessage } from "@/components/lib/agents/client/openai_client";
+import {
+  chatOnce,
+  ChatMessage,
+} from "@/components/lib/agents/client/openai_client";
 import { TECH_PROMPT } from "@/components/lib/system-prompts/tech";
 import type { UIMessage } from "../types";
 
-/**
- * Call the Tech specialist.
- *
- * Adds optional context for projectIdea and coreOverview.
- * Returns structured Markdown output for MVP planning and risks.
- */
 export async function callTech(
   corePrompt: string,
   history: UIMessage[] = [],
@@ -32,7 +28,12 @@ export async function callTech(
 
   const messages: ChatMessage[] = [
     ...prior,
-    { role: "user", content: finalUser || "Analyze this from a tech perspective and outline MVP steps." },
+    {
+      role: "user",
+      content:
+        finalUser ||
+        "Analyze this from a tech perspective and outline MVP steps.",
+    },
   ];
 
   return chatOnce({

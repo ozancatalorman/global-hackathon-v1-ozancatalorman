@@ -1,4 +1,3 @@
-// web/app/api/agents/orchestrate/route.ts
 import { NextRequest } from "next/server";
 import {
   coreGenerateSpecialistPrompts,
@@ -29,10 +28,8 @@ export async function POST(req: NextRequest) {
 
     if (!idea) return json({ error: "Missing 'idea'." }, 400);
 
-    // 1) CEO agent produces tailored prompts for each specialist
     const prompts = await coreGenerateSpecialistPrompts({ idea, userInputs });
 
-    // 2) Specialists run with project memory
     const raw = await runSpecialistsWithMemory({
       prompts,
       financeHistory: histories.finance ?? [],
@@ -40,14 +37,13 @@ export async function POST(req: NextRequest) {
       techHistory: histories.tech ?? [],
     });
 
-    // 3) CEO summarizes from 4 perspectives
     const summary = await coreSummarizeAcrossAgents({ idea, raw });
 
     return json({
       projectId: projectId ?? "demo",
-      prompts,   // { finance, sales, tech }
-      raw,       // { finance, sales, tech } full writeups
-      summary,   // { comments: { ceo, finance, sales, tech }, note }
+      prompts,
+      raw,
+      summary,
     });
   } catch (e: any) {
     return json({ error: String(e) }, 500);

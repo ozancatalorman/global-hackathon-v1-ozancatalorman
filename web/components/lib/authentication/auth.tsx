@@ -9,7 +9,6 @@ import {
   ReactNode,
 } from "react";
 
-// LocalStorage key for a super simple demo auth
 const KEY = "storma_auth";
 
 type AuthContextType = {

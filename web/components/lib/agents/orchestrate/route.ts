@@ -1,11 +1,20 @@
 import { NextRequest } from "next/server";
-import { coreGenerateSpecialistPrompts, runSpecialistsWithMemory, coreSummarizeAcrossAgents } from "@/components/lib/agents/main";
+import {
+  coreGenerateSpecialistPrompts,
+  runSpecialistsWithMemory,
+  coreSummarizeAcrossAgents,
+} from "@/components/lib/agents/main";
 
 export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
   try {
-    const { projectId, idea, userInputs = [], histories = {} } = await req.json();
+    const {
+      projectId,
+      idea,
+      userInputs = [],
+      histories = {},
+    } = await req.json();
 
     const prompts = await coreGenerateSpecialistPrompts({ idea, userInputs });
 
@@ -18,7 +27,6 @@ export async function POST(req: NextRequest) {
 
     const summary = await coreSummarizeAcrossAgents({ idea, raw });
 
-    // raw.* should be stored into each agent's chat (project-specific)
     return json({ projectId, prompts, raw, summary }, 200);
   } catch (e: any) {
     return json({ error: String(e) }, 500);

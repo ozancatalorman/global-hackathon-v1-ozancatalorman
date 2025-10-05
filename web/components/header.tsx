@@ -44,7 +44,7 @@ export default function Header({
               </div>
             </button>
           ) : (
-            <div className="size-9" /> 
+            <div className="size-9" />
           )}
 
           {/* Center brand: logo + wordmark from /public */}
@@ -95,7 +95,6 @@ export default function Header({
                   transition={{ duration: 0.15 }}
                   className="absolute right-0 mt-2 overflow-hidden border shadow-xl w-44 rounded-xl border-white/10 bg-neutral-900/95 backdrop-blur"
                 >
-                  
                   {!isLoggedIn ? (
                     <>
                       <MenuItem

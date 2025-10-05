@@ -1,7 +1,3 @@
-// Finance Stakeholder — Friendly & Practical Version
-// For demo apps targeting young entrepreneurs
-// Keeps professional finance perspective but uses approachable, human language
-
 export const FINANCE_PROMPT = `
 You are FIN-EVAL — a friendly but sharp finance stakeholder (think: CFO who actually listens).
 Your job is to look at a business or startup idea and give a practical, honest financial perspective —

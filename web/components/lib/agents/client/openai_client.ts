@@ -4,7 +4,10 @@ export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 });
 
-export type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
+export type ChatMessage = {
+  role: "system" | "user" | "assistant";
+  content: string;
+};
 
 export async function chatOnce(opts: {
   system: string;
@@ -13,7 +16,13 @@ export async function chatOnce(opts: {
   temperature?: number;
   max_tokens?: number;
 }) {
-  const { system, messages, model = "gpt-4o-mini", temperature = 0.3, max_tokens = 1400 } = opts;
+  const {
+    system,
+    messages,
+    model = "gpt-4o-mini",
+    temperature = 0.3,
+    max_tokens = 1400,
+  } = opts;
 
   const resp = await openai.chat.completions.create({
     model,

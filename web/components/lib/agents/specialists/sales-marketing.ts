@@ -1,14 +1,10 @@
-// components/lib/agents/specialists/sales-marketing.ts
-import { chatOnce, ChatMessage } from "@/components/lib/agents/client/openai_client";
+import {
+  chatOnce,
+  ChatMessage,
+} from "@/components/lib/agents/client/openai_client";
 import { SALES_PROMPT } from "@/components/lib/system-prompts/sales-marketing";
 import type { UIMessage } from "../types";
 
-/**
- * Call the Sales/Marketing specialist.
- *
- * Adds optional context for projectIdea and coreOverview.
- * Returns structured Markdown with clear actionable tone.
- */
 export async function callSales(
   corePrompt: string,
   history: UIMessage[] = [],
@@ -32,7 +28,11 @@ export async function callSales(
 
   const messages: ChatMessage[] = [
     ...prior,
-    { role: "user", content: finalUser || "Analyze this from a sales and marketing perspective." },
+    {
+      role: "user",
+      content:
+        finalUser || "Analyze this from a sales and marketing perspective.",
+    },
   ];
 
   return chatOnce({
