@@ -8,11 +8,11 @@ import { useAuth } from "@/components/lib/authentication/auth";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { isLoggedIn } = useAuth(); // << use the flag from your context
+  const { isLoggedIn } = useAuth(); 
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  // keep SSR stable (assume logged out on server)
+
   const href = mounted && isLoggedIn ? "/dashboard" : "/login";
   const hoverText =
     mounted && isLoggedIn

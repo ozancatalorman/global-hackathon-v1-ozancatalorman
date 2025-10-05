@@ -44,7 +44,7 @@ export default function Header({
               </div>
             </button>
           ) : (
-            <div className="size-9" /> // keep center title centered
+            <div className="size-9" /> 
           )}
 
           {/* Center brand: logo + wordmark from /public */}
@@ -62,8 +62,8 @@ export default function Header({
                 className="object-contain drop-shadow-[0_0_16px_rgba(56,189,248,0.25)] shrink-0"
                 priority
               />
-              {/* Wordmark with negative margin to tighten spacing */}
-              <div className="-ml-[15px]">
+              {/* negative margin to tighten spacing, could not find any other solution lol */}
+              <div className="-ml-[16px]">
                 <Image
                   src="/storma_text.png"
                   alt="storma"
@@ -135,7 +135,7 @@ export default function Header({
         </div>
       </header>
 
-      {/* SIDEBAR (Guide) — only when logged in, and only 'New Storming' */}
+      {/* SIDEBAR (Guide) — only when logged in */}
       <AnimatePresence>
         {isLoggedIn && sidebarOpen && (
           <>
@@ -195,7 +195,6 @@ export default function Header({
   );
 }
 
-/** Menu item that can be a link or a button */
 function MenuItem({
   label,
   href,

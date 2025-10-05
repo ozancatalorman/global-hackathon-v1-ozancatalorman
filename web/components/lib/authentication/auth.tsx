@@ -26,7 +26,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return localStorage.getItem(KEY) === "1";
   });
 
-  // read once on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       setIsLoggedIn(localStorage.getItem(KEY) === "1");

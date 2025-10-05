@@ -175,7 +175,7 @@ function CreateProjectModal({
             onClick={onClose}
           />
 
-          {/* Grid wrapper to center perfectly */}
+          {/* Grid wrapper center perfectly */}
           <div className="fixed inset-0 z-50 grid pointer-events-none place-items-center">
             <motion.div
               className="pointer-events-auto w-[90%] max-w-md overflow-hidden rounded-2xl border border-white/10 bg-neutral-950 p-4 shadow-2xl"

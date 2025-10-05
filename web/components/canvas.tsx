@@ -48,11 +48,10 @@ export default function Canvas({
 
   return (
     <div className="relative h-[560px] w-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-zinc-950 to-zinc-900">
-      {/* dotted background */}
+
       <div className="pointer-events-none absolute inset-0 opacity-40 [background:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px]" />
 
-      {/* SVG in 0..100 space so path numbers (no %) are valid */}
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
         <defs>
           <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
@@ -64,7 +63,6 @@ export default function Canvas({
         ))}
       </svg>
 
-      {/* nodes (CSS uses %) */}
       <Node
         label={nodes.general.label}
         x={nodes.general.x}
