@@ -1,119 +1,57 @@
-# 🚀 ACTA Global Hackathon
+# ⚡ Storma — Build AI Teams That Think With You
 
-**24 hours to build something impressive.**
+Welcome to **Storma**, the hackathon-born app where you spin up your idea and I make your *AI dream team* go to work.  
+You can brief your **CEO agent**, who then orchestrates specialized AI teammates in **Finance**, **Sales/Marketing**, and **Tech** to refine, plan, and accelerate your startup concepts.
 
-## ⏰ Timeline
-
-- **Start**: Oct 4, 2025 at 12:00 CET
-- **End**: Oct 5, 2025 at 12:00 CET
-- **Duration**: 24 hours
-
-## 🏆 Prizes
-
-1. **1st**: One week in Cape Town (flights + hotel)
-2. **2nd**: €300 + fast-tracked interview
-3. **3rd**: Raspberry Pi + fast-tracked interview
-
-## 💡 What to Build
-
-**Option 1: Build anything you wish existed** (open format - truly anything!)
-
-**Option 2: Choose one of these problem statements:**
-
-### 1. Memory Keeper for Grandparents
-Interactive AI conversations that capture grandparents' life memories and turn them into blog posts for family members. Think Duolingo but for preserving family stories and wisdom.
-
-### 2. Graph-Based Learning System
-Transform linear course content (like [MIT's Statistics course](https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/)) into an interactive graph-based learning experience. Organize concepts as nodes/connections to match how the brain actually learns - accelerating comprehension through visualization and non-linear exploration.
-
-### 3. Agent Orchestration Layer
-Build the n8n for AI agents - an orchestration platform for vertical agents to create AI-native companies. Solve context engineering and enable swarm intelligence across agent networks.
-
-**Note**: These are extensive problems - MVPs are perfectly fine and expected!
-
-## 🎯 Rules
-
-- Solo or duo teams
-- Greenfield projects only
-- Any tech stack
-- Must be buildable in 24 hours
-- Read [RULES.md](./RULES.md) for anti-cheating requirements
-
-## 🚀 Quick Start
-
-```bash
-# 1. Clone this repo
-git clone <your-fork-url>
-cd global-hackathon-v1
-
-# 2. Create timestamp (REQUIRED for anti-cheating)
-date > .hackathon-start
-git add .hackathon-start
-git commit -m "Starting hackathon - $(date)"
-git push
-
-# 3. Build your project here
-# 4. Commit regularly (minimum 5 commits)
-```
-
-## 📤 Submission
-
-**Deadline**: Oct 5, 2025 at 12:00 CET
-
-**Submit at**: [https://forms.acta.so/r/wMobdM](https://forms.acta.so/r/wMobdM)
-
-**You need**:
-1. Public GitHub repo URL
-2. 60-second demo video (Loom/YouTube - must be public)
-3. Live demo URL (deployed app)
-4. Your email and name
-
-## ✅ Before Submitting
-
-```bash
-# Run verification
-node verify-submission.js
-```
-
-Check:
-- [ ] GitHub repo is public
-- [ ] 60s video is public and accessible
-- [ ] Live demo works in incognito window
-- [ ] Made 5+ commits during the 24 hours
-- [ ] README updated with project info
-
-## 🎬 Judging
-
-**Top 25 submissions** will be ranked 1-10 on each criterion:
-
-### Craft (1-10)
-Quality of execution, code quality, attention to detail, polish. Does it work smoothly? Is it well-built? A simple feature done exceptionally well scores higher than complex features done poorly.
-
-### Novelty (1-10)
-Originality and innovation. Is this a fresh take? Does it approach the problem differently? Bonus points for ideas that make judges think "why doesn't this exist yet?"
-
-### Utility (1-10)
-Practical usefulness and real-world value. Would people actually use this? Does it solve a genuine problem? Could this become a real product?
-
-### Taste (1-10)
-Design sensibility, user experience, aesthetic choices. Is it intuitive? Does it feel good to use? Great taste shows in the details - from UI design to interaction patterns to copy writing.
-
-**Final scores** are calculated by summing all four dimensions. Highest total wins.
-
-## 💡 Tips
-
-- Start simple, iterate
-- Commit often (proves authenticity)
-- Deploy early (Vercel, Netlify, Railway)
-- Record demo showing actual functionality
-- Read [RULES.md](./RULES.md) to avoid disqualification
-
-## 📞 Support
-
-- **Discord**: [Join](https://discord.gg/9KbH3f5M2a)
-- **Instagram**: [@acta.so](https://instagram.com/acta.so)
-- **Web**: [acta.so/hackathon](https://www.acta.so/hackathon)
+I am inspired by the 3rd project idea you gave me and turned it into a entrepreneur-helper-web-app-with-AI-agents kinda thing :D
 
 ---
 
-**Good luck! 🎉**
+## 🧠 The Concept
+
+Here is how it works:
+You type your business idea.  
+The **Core (CEO)** agent breaks it down, generates prompts for three different specialized agents(not very specialized since I had limited time fine-tuning - only with system prompts lol):
+- 💰 **Finance Agent** – Behvaes like a friendly CFO and evaluates the idea as a finance stakeholder 
+- 📈 **Sales Agent** – Forecasts some sales shit and suggests a marketing strategy
+- 💻 **Tech Agent** – Helps you think about the MVP and stack 
+
+They all chat independently but sync through the CEO’s orchestration loop.  
+It’s like a whole early-stage startup team inside the browser.
+
+---
+
+## 🚀 Tech Stack
+
+- **Next.js 14 (App Router)**  
+- **React + TypeScript**  
+- **TailwindCSS** for styling  
+- **Lucide Icons** for the slick minimal icons  
+- **React Markdown + Remark GFM** for formatted AI replies  
+- **Edge runtime** for lightning-fast API responses  
+- **LocalStorage** for offline persistence  
+- **OpenAI API (custom wrapper)** for agent communication  
+
+---
+
+## 🧪 Known Issues (but hey, it was a 24-hour sprint)
+
+- Some agents occasionally forget who they are.  
+- The CEO sometimes UNDER-explains because he just thinks he is always right.
+- Chat history sync might have its “Elephant” moments.  
+- Toast notifications are sometimes shy.  
+
+---
+
+## ⚙️ Setup
+
+```bash
+# Clone it
+git clone https://github.com/yourname/storma.git
+cd storma
+
+# Install dependencies
+npm install
+
+# Run locally
+npm run dev
