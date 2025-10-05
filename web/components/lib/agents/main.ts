@@ -6,39 +6,64 @@ import { callTech } from "./specialists/tech";
 import type { SpecialistPrompts, UIMessage } from "./types";
 
 /** A) Core → generate 3 specialist prompts */
+// A) Core → generate 3 specialist prompts
 export async function coreGenerateSpecialistPrompts(params: {
   idea: string;
   userInputs?: string[];
 }): Promise<SpecialistPrompts> {
+  // Make the model really stick to JSON:
+  const userExtras =
+    (params.userInputs ?? [])
+      .filter(Boolean)
+      .map((s) => `- ${s}`)
+      .join("\n") || "(none)";
+
   const text = await chatOnce({
     system: MAIN_PROMPT,
     messages: [
       {
         role: "user",
         content:
-          `MODE=A\n` +
-          `Idea:\n${params.idea}\n\n` +
-          `Extra inputs:\n${(params.userInputs ?? [])
-            .map((s) => `- ${s}`)
-            .join("\n")}\n\n` +
-          // NEW anti-repeat nudge:
-          `Constraints:\n- Avoid repeating earlier prompts verbatim.\n- If the user is following up, vary angle/assumptions to move the work forward.\n- Prefer concrete, testable tasks.\n`,
+          [
+            "MODE=A",
+            "",
+            `Idea:`,
+            params.idea,
+            "",
+            `Extra inputs:`,
+            userExtras,
+            "",
+            // Nudge against reusing earlier prompts verbatim:
+            `Constraints: Return ONLY a strict JSON object. No prose, no backticks.`,
+            `If this is a follow-up, vary angles/assumptions to progress the work; avoid repeating earlier prompts.`,
+          ].join("\n"),
       },
     ],
-    // bump a bit for novelty
-    temperature: 0.5,
+    temperature: 0.45,      // a bit higher to avoid identical text
     max_tokens: 500,
   });
 
+  // Tolerant JSON extraction (handles ```json ... ``` too)
+  const match = text.match(/\{[\s\S]*\}/);
+  const jsonStr = match ? match[0] : text;
+
   try {
-    return JSON.parse(text) as SpecialistPrompts;
+    const parsed = JSON.parse(jsonStr) as SpecialistPrompts;
+    // quick guard for shape
+    if (!parsed.finance || !parsed.sales || !parsed.tech) throw new Error("bad shape");
+    return parsed;
   } catch {
+    // Intelligent fallback that still depends on the current idea
     return {
       finance:
-        "Analyze unit economics, key assumptions, runway, break-even; list next validations.",
+        `For this idea: "${params.idea}". Analyze unit economics, assumptions, runway, break-even. ` +
+        `List the next 3 validations with data you need.`,
       sales:
-        "Define ICP, positioning, top channels, 3 experiments with success metrics.",
-      tech: "Outline MVP scope, key components, risks and a 2-week sprint plan.",
+        `For this idea: "${params.idea}". Define ICP, positioning, top channels. ` +
+        `Propose 3 experiments with success metrics.`,
+      tech:
+        `For this idea: "${params.idea}". Outline MVP scope, key components, major risks, ` +
+        `and a crisp 2-week sprint plan.`,
     };
   }
 }

@@ -12,8 +12,6 @@ export async function chatOnce(opts: {
   model?: string;
   temperature?: number;
   max_tokens?: number;
-   presence_penalty?: number;   
-  frequency_penalty?: number;  
 }) {
   const { system, messages, model = "gpt-4o-mini", temperature = 0.3, max_tokens = 1400 } = opts;
 

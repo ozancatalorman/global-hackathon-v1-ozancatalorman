@@ -3,7 +3,7 @@
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState} from "react";
 import { useRouter, useParams } from "next/navigation";
 import Header from "@/components/header";
 import { X, Maximize2, Minimize2, Sparkles } from "lucide-react";
@@ -132,8 +132,8 @@ function Drawer({
             </button>
           </div>
         </div>
-
-        <div className="flex flex-col h-[calc(100vh-48px)]">
+ 
+        <div className="flex flex-col h-[calc(100vh-48px)]">     
           <div className="flex-1 p-4 overflow-auto">
             {history.length === 0 ? (
               <p className="text-white/50">No messages yet.</p>
@@ -349,16 +349,22 @@ export default function ProjectPage() {
       setHistory("core", [...core, { role: "user", content: idea }]);
     }
 
+    const recentCoreInputs = core
+      .filter((m) => m.role === "user")
+      .slice(-2) // last two user messages
+      .map((m) => m.content);
+
     const res = await fetch("/api/agents/orchestrate", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         projectId,
         idea,
-        userInputs: [],
+        userInputs: recentCoreInputs, // << add this
         histories: { finance, sales, tech },
       }),
     });
+
     const json: {
       prompts: Prompts;
       raw: Raw;
@@ -489,7 +495,14 @@ export default function ProjectPage() {
     setRootModal(false);
   }
 
-  if (!loaded || !project) return null;
+  if (!loaded || !project) {
+    return (
+      <div className="min-h-screen bg-black text-neutral-100">
+        <Header onCreateProject={() => router.push("/dashboard")} />
+        <Toast text={toast.text} show={toast.show} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black text-neutral-100">
@@ -535,7 +548,7 @@ export default function ProjectPage() {
                 className="grid place-items-center size-24 rounded-full bg-gradient-to-br from-purple-500 via-blue-500 to-cyan-400 shadow-[0_0_30px_rgba(59,130,246,0.35)]"
                 aria-label="Open CEO chat"
               />
-              <div className="mt-2 text-sm opacity-85">Main Agent (CEO)</div>
+              <div className="mt-2 text-sm opacity-85">Dream Team CEO</div>
 
               {/* CEO output panel — bigger & scrollable */}
               {ceoPreview ? (
@@ -611,17 +624,17 @@ export default function ProjectPage() {
                 [
                   {
                     id: "finance",
-                    label: "Finance",
+                    label: "Finance Team",
                     color: "from-blue-400 to-cyan-400",
                   },
                   {
                     id: "sales",
-                    label: "Sales/Marketing",
+                    label: "Sales/Marketing Team",
                     color: "from-fuchsia-400 to-purple-400",
                   },
                   {
                     id: "tech",
-                    label: "Tech",
+                    label: "Tech Team",
                     color: "from-emerald-400 to-cyan-400",
                   },
                 ] as { id: AgentId; label: string; color: string }[]
@@ -640,7 +653,7 @@ export default function ProjectPage() {
                     {a.label}
                   </div>
                   <div className="mt-1 text-xs text-center text-white/60">
-                    Open chat
+                    Click to open the team chat
                   </div>
                 </button>
               ))}
