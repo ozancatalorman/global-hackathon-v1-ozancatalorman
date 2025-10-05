@@ -43,6 +43,11 @@ It’s like a whole early-stage startup team inside the browser.
 
 ---
 
+
+PLEASE USE THESE CREDENTIALS:
+acta@ozan.com
+12345
+
 ## ⚙️ Setup
 
 ```bash
